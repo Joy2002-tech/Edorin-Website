@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Edorin — Hero with Logo Bubbles</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:Georgia, "Times New Roman", serif;
+    background:#000;color:#fff;overflow-x:hidden;
+  }
+
+  /* TOP RUNNING TICKER (rounded neon-like) */
+  #topTickerWrap{
+    position:fixed; left:50%; transform:translateX(-50%); top:64px; z-index:1500;
+    width:86%; max-width:1400px; pointer-events:none;
+  }
+  #topTicker {
+    background: linear-gradient(180deg, #080808, #060606);
+    border-radius:18px; padding:10px 18px; box-shadow:0 8px 40px rgba(20,10,80,0.6);
+    border:4px solid rgba(95,60,255,0.20); overflow:hidden; font-family:'Courier New',monospace; color:#fff;
+  }
+  .ticker-track{ display:inline-block; white-space:nowrap; will-change:transform; }
+  .ticker-item{
+    display:inline-flex; align-items:center; gap:12px; padding:6px 20px; margin-right:18px; border-radius:10px;
+    background: rgba(255,255,255,0.01); pointer-events:auto;
+  }
+  .ticker-item .logo-circle {
+    width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,0.04); font-weight:700;
+  }
+  .ticker-item .sym{ font-weight:700; min-width:90px; text-transform:uppercase }
+  .ticker-item .price { font-weight:700; margin-left:6px; }
+  .ticker-item .pct.up { color:#6fe46f; }
+  .ticker-item .pct.down { color:#ff7b7b; }
+
+  /* HERO (your original hero) */
+  nav{
+    position:fixed;top:0;left:0;right:0;height:56px;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 20px;z-index:1600;background:rgba(0,0,0,0.85);
+    border-bottom:3px solid #e6c34a;
+  }
+  .logo{display:flex;gap:10px;align-items:center;font-weight:700;font-size:18px;color:#fff}
+  .nav-links{display:flex;gap:18px}
+  .nav-links a{color:#fff;text-decoration:none;padding:6px}
+  .nav-links a.active{color:#ffcc00;border-bottom:3px solid #ffcc00;}
+
+  .hero{
+    position:relative;height:100vh;width:100%;
+    display:flex;align-items:center;justify-content:center;text-align:center;padding:0 20px;
+    background: url('assets/hero-bg.png') center center/cover no-repeat;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.45));
+    z-index:1;
+  }
+  .hero-inner{position:relative;z-index:2;max-width:1200px;width:100%}
+  h1{font-size:64px;margin-bottom:12px;letter-spacing:1px;color:#fff;font-weight:900;
+      text-shadow:0 6px 18px rgba(0,0,0,0.7)}
+  .tagline{font-size:20px;font-style:italic;color:#e9e9e9;margin-bottom:18px;opacity:0.95}
+
+  /* MAIN LEFT SKY BUBBLE (small) */
+  .logo-bubble { position:absolute; top:15%; left:16%; transform:translateX(-50%);
+    width:110px; height:110px; border-radius:50%; background:rgba(12,12,15,0.28); backdrop-filter:blur(4px);
+    border:1px solid rgba(255,204,0,0.07); box-shadow:0 6px 18px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+    display:flex;align-items:center;justify-content:center;overflow:hidden;z-index:3;cursor:pointer;
+  }
+  .logo-bubble::after{content:"";position:absolute;inset:-6px;border-radius:50%;box-shadow:0 0 30px rgba(255,200,60,0.06);pointer-events:none}
+  .bubble-img{ width:72%;height:72%;object-fit:contain;opacity:0;transform:scale(.8);transition: transform .45s, opacity .45s;
+    filter: drop-shadow(0 6px 16px rgba(0,0,0,0.6)); }
+  .bubble-img.show{opacity:1;transform:scale(1);}
+
+  /* side bubbles */
+  .side-column{ position:absolute; top:12%; bottom:12%; width:78px; display:flex; flex-direction:column; align-items:center; justify-content:space-between; z-index:2; pointer-events:none; }
+  .side-column.left{ left:12px } .side-column.right{ right:12px }
+  .side-bubble{ width:60px;height:60px;border-radius:50%; background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); display:flex;align-items:center;justify-content:center; opacity:.95; box-shadow:0 8px 22px rgba(0,0,0,0.45); transform:translateY(0); animation: floatUpDown 6s ease-in-out infinite; overflow:hidden; }
+  .side-bubble img{ width:62%; height:62%; object-fit:contain; opacity:0; transform:scale(.85); transition:opacity .45s, transform .45s; }
+  .side-bubble img.show{ opacity:1; transform:scale(1); }
+  @keyframes floatUpDown { 0%{ transform:translateY(0) scale(1); opacity:.9 } 50%{ transform:translateY(-12px) scale(1.03); opacity:1 } 100%{ transform:translateY(0) scale(1); opacity:.9 } }
+
+  .scroll-down{ position:absolute; bottom:16px; left:50%; transform:translateX(-50%); z-index:6; color:#ffcc00; font-size:20px; opacity:0.95; text-shadow:0 3px 10px rgba(0,0,0,0.6); animation:bounce 2s infinite }
+  @keyframes bounce{ 0%,100%{ transform:translateX(-50%) translateY(0) } 50%{ transform:translateX(-50%) translateY(-8px) } }
+
+  @media (max-width:900px){
+    h1{ font-size:36px } .logo-bubble{ width:86px; height:86px; top:14% } .side-column{ display:none }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><img src="assets/icon-32.png" alt="" style="width:28px;height:28px;border-radius:4px"> Edorin</div>
+  <div class="nav-links">
+    <a href="#" class="active">Home</a>
+    <a href="#">Products</a>
+    <a href="#">Labs</a>
+    <a href="#">About</a>
+  </div>
+</nav>
+
+<!-- TOP TICKER -->
+<div id="topTickerWrap">
+  <div id="topTicker">
+    <div id="tickerInner" style="display:flex;gap:42px;align-items:center;"></div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Edorin</h1>
+    <p class="tagline">"Guiding traders through markets with timeless intelligence."</p>
+  </div>
+
+  <!-- MAIN LEFT SKY BUBBLE -->
+  <div class="logo-bubble" id="mainBubble" title="click to advance">
+    <img id="mainImg" class="bubble-img" src="" alt="logo" />
+  </div>
+
+  <!-- LEFT side bubbles -->
+  <div class="side-column left" aria-hidden="true">
+    <div class="side-bubble" data-index="0"><img src="" alt=""></div>
+    <div class="side-bubble" data-index="1"><img src="" alt=""></div>
+    <div class="side-bubble" data-index="2"><img src="" alt=""></div>
+    <div class="side-bubble" data-index="3"><img src="" alt=""></div>
+    <div class="side-bubble" data-index="4"><img src="" alt=""></div>
+  </div>
+
+  <!-- RIGHT side bubbles -->
+  <div class="side-column right" aria-hidden="true">
+    <div class="side-bubble" data-index="5"><img src="" alt=""></div>
+    <div class="side-bubble" data-index="6"><img src="" alt=""></div>
+    <div class="side-bubble" data-index="7"><img src="" alt=""></div>
+    <div class="side-bubble" data-index="8"><img src="" alt=""></div>
+    <div class="side-bubble" data-index="9"><img src="" alt=""></div>
+  </div>
+
+  <div class="scroll-down">⌄</div>
+</section>
+
+<script>
+/* LOGOS - adjust filenames in site/assets/ as needed */
+const logos = [
+  'assets/Ashok.png','assets/ITC.png','assets/LIC.png','assets/RIL.png','assets/SBI.png',
+  'assets/Tata.png','assets/ULTRA.png','assets/hdfc.png','assets/info.png','assets/nifty.png'
+];
+logos.forEach(s => { const i=new Image(); i.src=s; });
+
+/* MAIN bubble cycle (4s) */
+const mainImg = document.getElementById('mainImg');
+const mainBubble = document.getElementById('mainBubble');
+let mainIndex = 0;
+function showMain(idx){
+  mainImg.classList.remove('show');
+  mainBubble.classList.remove('pop');
+  setTimeout(()=>{
+    const src = logos[idx % logos.length] || '';
+    mainImg.src = src;
+    mainBubble.classList.add('pop');
+    void mainImg.offsetWidth;
+    mainImg.classList.add('show');
+  }, 160);
+}
+showMain(mainIndex);
+setInterval(()=>{ mainIndex=(mainIndex+1)%logos.length; showMain(mainIndex); }, 4000);
+mainBubble.addEventListener('click', ()=>{ mainIndex=(mainIndex+1)%logos.length; showMain(mainIndex); });
+
+/* SIDE bubbles - independent cycles */
+const sideBubbles = Array.from(document.querySelectorAll('.side-bubble'));
+sideBubbles.forEach((bubble, i) => {
+  const img = bubble.querySelector('img');
+  let idx = (i * 2) % logos.length;
+  function updateSide(){
+    img.classList.remove('show');
+    setTimeout(()=>{
+      img.src = logos[idx % logos.length] || '';
+      void img.offsetWidth;
+      img.classList.add('show');
+      idx = (idx + 1) % logos.length;
+    }, 140);
+  }
+  setTimeout(updateSide, i * 300);
+  const intervalMs = 2000 + (i * 250);
+  setInterval(updateSide, intervalMs);
+});
+
+/* ---------------- TOP RUNNING TICKER ----------------
+   Calls backend /api/quotes?symbols=INFY,RELIANCE,TCS,... every 10s
+*/
+const TICKER_SYMBOLS = ['INFY','RELIANCE','TCS','HDFCBANK','SBIN','ITC','RIL','HDFC'];
+const tickerInner = document.getElementById('tickerInner');
+
+function makeTickerBlock(sym, price, change, pct) {
+  const up = (pct !== null && pct >= 0);
+  const pctClass = up ? 'up' : 'down';
+  const arrow = up ? '▲' : '▼';
+  const logoTxt = sym.slice(0,2);
+  return `
+    <div class="ticker-item" style="min-width:260px;">
+      <div class="logo-circle">${logoTxt}</div>
+      <div style="display:flex;flex-direction:column;">
+        <div class="sym">${sym}</div>
+        <div style="font-size:13px;">
+          <span class="price">${price !== null ? price : '—'}</span>
+          <span style="opacity:.85">&nbsp;${arrow}</span>
+          <span class="pct ${pctClass}">${Math.abs(pct || 0).toFixed(2)}%</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+async function updateTicker() {
+  try {
+    const qs = encodeURIComponent(TICKER_SYMBOLS.join(','));
+    const resp = await fetch(`/api/quotes?symbols=${qs}`);
+    const j = await resp.json();
+    if (!j.ok) return;
+    const data = j.data || {};
+    const blocks = [];
+    // maintain order
+    for (const s of TICKER_SYMBOLS) {
+      const key = s.includes('.') ? s : s + '.NS';
+      const entry = data[key];
+      if (entry) {
+        blocks.push(makeTickerBlock(s, entry.price, entry.change, entry.percent));
+      } else {
+        blocks.push(makeTickerBlock(s, null, 0, 0));
+      }
+    }
+    // duplicate to make a looping feel
+    tickerInner.innerHTML = blocks.join('') + blocks.join('');
+    // set CSS animation using JS to create a smooth continuous scroll
+    // compute width and set animation
+    requestAnimationFrame(()=> {
+      const totalWidth = tickerInner.scrollWidth / 2; // one pass
+      const speed = 120; // px per second
+      const duration = Math.max(18, totalWidth / speed);
+      tickerInner.style.transition = 'transform linear ' + duration + 's';
+      // animate via transform loop
+      let start = null;
+      let rafId = null;
+      let pxPerSec = totalWidth / duration;
+      let curX = 0;
+      // cancel previous anim if any
+      if (tickerInner._raf) cancelAnimationFrame(tickerInner._raf);
+      function step(ts) {
+        if (!start) start = ts;
+        const elapsed = (ts - start) / 1000;
+        curX = (elapsed * pxPerSec) % totalWidth;
+        tickerInner.style.transform = `translateX(-${curX}px)`;
+        tickerInner._raf = requestAnimationFrame(step);
+      }
+      tickerInner._raf = requestAnimationFrame(step);
+    });
+
+  } catch (err) {
+    console.error('Ticker update failed', err);
+  }
+}
+
+updateTicker();
+setInterval(updateTicker, 10000);
+</script>
+
+</body>
+</html>
