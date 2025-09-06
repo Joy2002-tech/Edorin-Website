@@ -4,6 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>YourBrand — Trading Tools & Labs</title>
+
+  <!-- Google fonts: Playfair Display (elegant serif), Cairo (modern Arabic-friendly) -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -19,6 +23,7 @@
       </div>
 
       <nav class="main-nav">
+        <a href="#">Home</a>
         <a href="#tools">Tools</a>
         <a href="#labs">Labs</a>
         <a href="#about">About</a>
@@ -40,16 +45,32 @@
   <!-- Main container -->
   <main class="container">
     <!-- Brand Hero (right under nav) -->
-    <section class="brand-hero">
-      <h1>YourBrand</h1>
-      <p class="vision">We make intraday scanning and trade analysis fast, reliable and simple. Vision: make smart trading decisions accessible.</p>
+    <section class="brand-hero" id="home">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <h1 class="hero-title">YourBrand</h1>
+          <p class="vision">We bring the wisdom of market maps and trade craft together — simple, reliable intraday signals with a touch of old-world style.</p>
+          <div class="hero-cta">
+            <a class="btn-primary" href="#tools">Explore Tools</a>
+            <a class="btn-ghost" href="#labs">See Labs</a>
+          </div>
+        </div>
+        <div class="hero-art">
+          <!-- decorative map / compass SVG placeholder -->
+          <svg viewBox="0 0 200 200" class="compass" aria-hidden="true">
+            <circle cx="100" cy="100" r="90" fill="none" stroke="#c59d5f" stroke-width="2"/>
+            <path d="M100 20 L110 100 L100 180 L90 100 Z" fill="#b5833b"/>
+            <circle cx="100" cy="100" r="6" fill="#5b3a20"/>
+          </svg>
+        </div>
+      </div>
     </section>
 
     <!-- Hero Product (two main products) -->
     <section class="product-hero">
       <article class="product-card">
         <h2>Hero Product 1</h2>
-        <p>Primary product description. Real-time signals and intuitive UI.</p>
+        <p>Primary product description. Real-time signals and an intuitive map of opportunities.</p>
         <div class="card-actions">
           <button class="btn-primary">Open</button>
           <button class="btn">Docs</button>
@@ -69,17 +90,22 @@
 
     <!-- Tools slider -->
     <section id="tools" class="section">
-      <h3>Tools</h3>
-      <div class="card-slider" id="tools-slider">
-        <!-- cards added by script -->
-      </div>
+      <h3 class="section-title">Tools</h3>
+      <div class="card-slider" id="tools-slider"></div>
     </section>
 
     <!-- Labs slider -->
     <section id="labs" class="section">
-      <h3>Labs</h3>
-      <div class="card-slider" id="labs-slider">
-        <!-- cards added by script -->
+      <h3 class="section-title">Labs</h3>
+      <div class="card-slider" id="labs-slider"></div>
+    </section>
+
+    <!-- About / decorative separator -->
+    <section id="about" class="section about">
+      <div class="ornament">✦</div>
+      <div class="about-text">
+        <h3>About</h3>
+        <p>Inspired by coastal maps and souk markets — we present data in a calm, warm palette so you can make clearer trading choices.</p>
       </div>
     </section>
   </main>
@@ -106,6 +132,7 @@
         <div class="muted">hi@yourbrand.com</div>
       </div>
     </div>
+    <div class="footer-bottom">© <span id="yr"></span> YourBrand • Crafted with a mapmaker's eye</div>
   </footer>
 
   <script src="script.js"></script>
