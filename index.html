@@ -5,128 +5,64 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Edorin — Hero with Logo Bubbles</title>
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{
-    font-family:Georgia, "Times New Roman", serif;
-    background:#000;color:#fff;overflow-x:hidden;
-  }
-
-  /* NAV */
-  nav{
-    position:fixed;top:0;left:0;right:0;height:56px;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:0 20px;z-index:1200;background:rgba(0,0,0,0.85);
-    border-bottom:3px solid #e6c34a;
-  }
-  .logo{display:flex;gap:10px;align-items:center;font-weight:700;font-size:18px;color:#fff}
-  .nav-links{display:flex;gap:18px}
-  .nav-links a{color:#fff;text-decoration:none;padding:6px}
-  .nav-links a.active{color:#ffcc00;border-bottom:3px solid #ffcc00;}
-
-  /* HERO */
-  .hero{
-    position:relative;height:100vh;width:100%;
-    display:flex;align-items:center;justify-content:center;text-align:center;padding:0 20px;
-    background: url('assets/hero-bg.png') center center/cover no-repeat;
-  }
-  .hero::before{
-    content:"";position:absolute;inset:0;
-    background:linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.45));
-    z-index:1;
-  }
-  .hero-inner{position:relative;z-index:2;max-width:1200px;width:100%}
-  h1{font-size:64px;margin-bottom:12px;letter-spacing:1px;color:#fff;font-weight:900;
-      text-shadow:0 6px 18px rgba(0,0,0,0.7)}
-  .tagline{font-size:20px;font-style:italic;color:#e9e9e9;margin-bottom:18px;opacity:0.95}
-
-  /* MAIN LEFT SKY BUBBLE (smaller and moved left) */
-  .logo-bubble {
-    position:absolute;
-    top:15%;
-    left:16%;               /* left-side sky */
-    transform:translateX(-50%);
-    width:110px;
-    height:110px;
-    border-radius:50%;
-    background:rgba(12,12,15,0.28);
-    backdrop-filter:blur(4px);
-    border:1px solid rgba(255,204,0,0.07);
-    box-shadow:0 6px 18px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
-    display:flex;align-items:center;justify-content:center;overflow:hidden;z-index:3;cursor:pointer;
-  }
-  .logo-bubble::after{content:"";position:absolute;inset:-6px;border-radius:50%;box-shadow:0 0 30px rgba(255,200,60,0.06);pointer-events:none}
-
-  .bubble-img{
-    width:72%;height:72%;object-fit:contain;opacity:0;transform:scale(.8);transition: transform .45s cubic-bezier(.2,.9,.3,1), opacity .45s;
-    filter: drop-shadow(0 6px 16px rgba(0,0,0,0.6));
-  }
-  .bubble-img.show{opacity:1;transform:scale(1);}
-
-  /* POP animation for main bubble when it changes */
-  .pop { animation: popAnim .42s ease; }
-  @keyframes popAnim {
-    0%{ transform: translateX(-50%) scale(.85); opacity:.0 }
-    60%{ transform: translateX(-50%) scale(1.08); opacity:1 }
-    100%{ transform: translateX(-50%) scale(1) }
-  }
-
-  /* SIDE COLUMNS */
-  .side-column{ position:absolute; top:12%; bottom:12%; width:78px; display:flex; flex-direction:column; align-items:center; justify-content:space-between; z-index:2; pointer-events:none; }
-  .side-column.left{ left:12px }
-  .side-column.right{ right:12px }
-
-  .side-bubble{
-    width:60px;height:60px;border-radius:50%;
-    background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
-    border:1px solid rgba(255,255,255,0.04);
-    display:flex;align-items:center;justify-content:center;opacity:.95; box-shadow:0 8px 22px rgba(0,0,0,0.45);
-    transform:translateY(0);
-    animation: floatUpDown 6s ease-in-out infinite;
-    overflow:hidden;
-  }
-
-  /* tiny logo inside each side bubble */
-  .side-bubble img{ width:62%; height:62%; object-fit:contain; opacity:0; transform:scale(.85); transition:opacity .45s, transform .45s; filter: drop-shadow(0 4px 12px rgba(0,0,0,.5)); }
-  .side-bubble img.show{ opacity:1; transform:scale(1); }
-
-  /* stagger delays so they float asynchronously */
-  .side-column.left .side-bubble:nth-child(1){ animation-delay:0s }
-  .side-column.left .side-bubble:nth-child(2){ animation-delay:.6s }
-  .side-column.left .side-bubble:nth-child(3){ animation-delay:1.3s }
-  .side-column.left .side-bubble:nth-child(4){ animation-delay:2s }
-  .side-column.left .side-bubble:nth-child(5){ animation-delay:2.7s }
-
-  .side-column.right .side-bubble:nth-child(1){ animation-delay:.4s }
-  .side-column.right .side-bubble:nth-child(2){ animation-delay:1.1s }
-  .side-column.right .side-bubble:nth-child(3){ animation-delay:1.8s }
-  .side-column.right .side-bubble:nth-child(4){ animation-delay:2.5s }
-  .side-column.right .side-bubble:nth-child(5){ animation-delay:3.2s }
-
-  @keyframes floatUpDown {
-    0%{ transform:translateY(0) scale(1); opacity:.9 }
-    50%{ transform:translateY(-12px) scale(1.03); opacity:1 }
-    100%{ transform:translateY(0) scale(1); opacity:.9 }
-  }
-
-  /* small glow and faint candlestick background inside side bubbles (optional) */
-  .mini-chart{ width:60%; height:60%; background:
-    linear-gradient(transparent 60%, rgba(255,204,0,0.06) 60%),
-    linear-gradient(90deg, transparent 70%, rgba(255,255,255,0.02) 70%); opacity:.45; border-radius:4px; transform:rotate(-8deg); }
-
-  /* scroll hint */
-  .scroll-down{ position:absolute; bottom:16px; left:50%; transform:translateX(-50%); z-index:6; color:#ffcc00; font-size:20px; opacity:0.95; text-shadow:0 3px 10px rgba(0,0,0,0.6); animation:bounce 2s infinite }
-  @keyframes bounce{ 0%,100%{ transform:translateX(-50%) translateY(0) } 50%{ transform:translateX(-50%) translateY(-8px) } }
-
-  @media (max-width:900px){
-    h1{ font-size:36px }
-    .logo-bubble{ width:86px; height:86px; top:14% }
-    .side-column{ display:none }
-  }
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:Georgia, "Times New Roman", serif; background:#000;color:#fff;overflow-x:hidden;
+}
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;height:56px; display:flex;align-items:center;justify-content:space-between; padding:0 20px;z-index:1200;background:rgba(0,0,0,0.85); border-bottom:3px solid #e6c34a;
+}
+.logo{display:flex;gap:10px;align-items:center;font-weight:700;font-size:18px;color:#fff}
+.nav-links{display:flex;gap:18px}
+.nav-links a{color:#fff;text-decoration:none;padding:6px}
+.nav-links a.active{color:#ffcc00;border-bottom:3px solid #ffcc00;}
+/* HERO */
+.hero{
+  position:relative;height:100vh;width:100%; display:flex;align-items:center;justify-content:center;text-align:center;padding:0 20px; background: url('assets/hero-bg.png') center center/cover no-repeat;
+}
+.hero::before{ content:"";position:absolute;inset:0; background:linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.45)); z-index:1; }
+.hero-inner{position:relative;z-index:2;max-width:1200px;width:100%}
+h1{font-size:64px;margin-bottom:12px;letter-spacing:1px;color:#fff;font-weight:900; text-shadow:0 6px 18px rgba(0,0,0,0.7)}
+.tagline{font-size:20px;font-style:italic;color:#e9e9e9;margin-bottom:18px;opacity:0.95}
+/* MAIN LEFT SKY BUBBLE (smaller and moved left) */
+.logo-bubble { position:absolute; top:15%; left:16%; /* left-side sky */ transform:translateX(-50%); width:110px; height:110px; border-radius:50%; background:rgba(12,12,15,0.28); backdrop-filter:blur(4px); border:1px solid rgba(255,204,0,0.07); box-shadow:0 6px 18px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02); display:flex;align-items:center;justify-content:center;overflow:hidden;z-index:3;cursor:pointer; }
+.logo-bubble::after{content:"";position:absolute;inset:-6px;border-radius:50%;box-shadow:0 0 30px rgba(255,200,60,0.06);pointer-events:none}
+.bubble-img{ width:72%;height:72%;object-fit:contain;opacity:0;transform:scale(.8);transition: transform .45s cubic-bezier(.2,.9,.3,1), opacity .45s; filter: drop-shadow(0 6px 16px rgba(0,0,0,0.6)); }
+.bubble-img.show{opacity:1;transform:scale(1);}
+/* POP animation for main bubble when it changes */
+.pop { animation: popAnim .42s ease; }
+@keyframes popAnim { 0%{ transform: translateX(-50%) scale(.85); opacity:.0 } 60%{ transform: translateX(-50%) scale(1.08); opacity:1 } 100%{ transform: translateX(-50%) scale(1) } }
+/* SIDE COLUMNS */
+.side-column{ position:absolute; top:12%; bottom:12%; width:78px; display:flex; flex-direction:column; align-items:center; justify-content:space-between; z-index:2; pointer-events:none; }
+.side-column.left{ left:12px }
+.side-column.right{ right:12px }
+.side-bubble{ width:60px;height:60px;border-radius:50%; background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); display:flex;align-items:center;justify-content:center;opacity:.95; box-shadow:0 8px 22px rgba(0,0,0,0.45); transform:translateY(0); animation: floatUpDown 6s ease-in-out infinite; overflow:hidden; }
+/* tiny logo inside each side bubble */
+.side-bubble img{ width:62%; height:62%; object-fit:contain; opacity:0; transform:scale(.85); transition:opacity .45s, transform .45s; filter: drop-shadow(0 4px 12px rgba(0,0,0,.5)); }
+.side-bubble img.show{ opacity:1; transform:scale(1); }
+/* stagger delays so they float asynchronously */
+.side-column.left .side-bubble:nth-child(1){ animation-delay:0s }
+.side-column.left .side-bubble:nth-child(2){ animation-delay:.6s }
+.side-column.left .side-bubble:nth-child(3){ animation-delay:1.3s }
+.side-column.left .side-bubble:nth-child(4){ animation-delay:2s }
+.side-column.left .side-bubble:nth-child(5){ animation-delay:2.7s }
+.side-column.right .side-bubble:nth-child(1){ animation-delay:.4s }
+.side-column.right .side-bubble:nth-child(2){ animation-delay:1.1s }
+.side-column.right .side-bubble:nth-child(3){ animation-delay:1.8s }
+.side-column.right .side-bubble:nth-child(4){ animation-delay:2.5s }
+.side-column.right .side-bubble:nth-child(5){ animation-delay:3.2s }
+@keyframes floatUpDown { 0%{ transform:translateY(0) scale(1); opacity:.9 } 50%{ transform:translateY(-12px) scale(1.03); opacity:1 } 100%{ transform:translateY(0) scale(1); opacity:.9 } }
+/* small glow and faint candlestick background inside side bubbles (optional) */
+.mini-chart{ width:60%; height:60%; background: linear-gradient(transparent 60%, rgba(255,204,0,0.06) 60%), linear-gradient(90deg, transparent 70%, rgba(255,255,255,0.02) 70%); opacity:.45; border-radius:4px; transform:rotate(-8deg); }
+/* scroll hint */
+.scroll-down{ position:absolute; bottom:16px; left:50%; transform:translateX(-50%); z-index:6; color:#ffcc00; font-size:20px; opacity:0.95; text-shadow:0 3px 10px rgba(0,0,0,0.6); animation:bounce 2s infinite }
+@keyframes bounce{ 0%,100%{ transform:translateX(-50%) translateY(0) } 50%{ transform:translateX(-50%) translateY(-8px) } }
+@media (max-width:900px){ h1{ font-size:36px } .logo-bubble{ width:86px; height:86px; top:14% } .side-column{ display:none } }
 </style>
 </head>
 <body>
-
 <nav>
   <div class="logo"><img src="assets/icon-32.png" alt="" style="width:28px;height:28px;border-radius:4px"> Edorin</div>
   <div class="nav-links">
@@ -137,17 +73,114 @@
   </div>
 </nav>
 
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div class="tradingview-widget-container__widget"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Ticker tape by TradingView</span></a></div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+  {
+  "symbols": [
+    {
+      "proName": "BSE:SENSEX",
+      "title": ""
+    },
+    {
+      "proName": "BSE:BANK",
+      "title": ""
+    },
+    {
+      "proName": "BSE:RELIANCE",
+      "title": ""
+    },
+    {
+      "proName": "BSE:TATAMOTORS",
+      "title": ""
+    },
+    {
+      "proName": "BSE:MARUTI",
+      "title": ""
+    },
+    {
+      "proName": "BSE:BAJAJFINSV",
+      "title": ""
+    },
+    {
+      "proName": "BSE:BEL",
+      "title": ""
+    },
+    {
+      "proName": "BSE:ADANIPOWER",
+      "title": ""
+    },
+    {
+      "proName": "BSE:VBL",
+      "title": ""
+    },
+    {
+      "proName": "BSE:TVSMOTOR",
+      "title": ""
+    },
+    {
+      "proName": "BSE:SOLARINDS",
+      "title": ""
+    },
+    {
+      "proName": "BSE:SIEMENS",
+      "title": ""
+    },
+    {
+      "proName": "BSE:HAL",
+      "title": ""
+    },
+    {
+      "proName": "BSE:POLYCAB",
+      "title": ""
+    },
+    {
+      "proName": "BSE:CUMMINSIND",
+      "title": ""
+    },
+    {
+      "proName": "BSE:ICICIBANK",
+      "title": ""
+    },
+    {
+      "proName": "BSE:SBIN",
+      "title": ""
+    },
+    {
+      "proName": "BSE:ETERNAL",
+      "title": ""
+    },
+    {
+      "proName": "BSE:MIDCAP",
+      "title": ""
+    },
+    {
+      "proName": "BSE:SMLCAP",
+      "title": ""
+    }
+  ],
+  "colorTheme": "dark",
+  "locale": "en",
+  "largeChartUrl": "",
+  "isTransparent": true,
+  "showSymbolLogo": true,
+  "displayMode": "compact"
+}
+  </script>
+</div>
+<!-- TradingView Widget END -->
+
 <section class="hero">
   <div class="hero-inner">
     <h1>Edorin</h1>
     <p class="tagline">"Guiding traders through markets with timeless intelligence."</p>
   </div>
-
   <!-- MAIN LEFT SKY BUBBLE -->
   <div class="logo-bubble" id="mainBubble" title="click to advance">
     <img id="mainImg" class="bubble-img" src="" alt="logo" />
   </div>
-
   <!-- LEFT side bubbles -->
   <div class="side-column left" aria-hidden="true">
     <div class="side-bubble" data-index="0"><img src="" alt=""></div>
@@ -156,7 +189,6 @@
     <div class="side-bubble" data-index="3"><img src="" alt=""></div>
     <div class="side-bubble" data-index="4"><img src="" alt=""></div>
   </div>
-
   <!-- RIGHT side bubbles -->
   <div class="side-column right" aria-hidden="true">
     <div class="side-bubble" data-index="5"><img src="" alt=""></div>
@@ -165,88 +197,19 @@
     <div class="side-bubble" data-index="8"><img src="" alt=""></div>
     <div class="side-bubble" data-index="9"><img src="" alt=""></div>
   </div>
-
   <div class="scroll-down">⌄</div>
 </section>
-
 <script>
-/*
-  Put your logo PNGs (transparent backgrounds recommended) in /assets/
-  Update the filenames below if you use different names.
-*/
-const logos = [
-  'assets/Ashok.png',
-  'assets/ITC.png',
-  'assets/LIC.png',
-  'assets/RIL.png',
-  'assets/SBI.png',
-  'assets/Tata.png',
-  'assets/ULTRA.png',
-  'assets/hdfc.png',
-  'assets/info.png',
-  'assets/nifty.png'
-];
-
+/* Put your logo PNGs (transparent backgrounds recommended) in /assets/ Update the filenames below if you use different names. */
+const logos = [ 'assets/Ashok.png', 'assets/ITC.png', 'assets/LIC.png', 'assets/RIL.png', 'assets/SBI.png', 'assets/Tata.png', 'assets/ULTRA.png', 'assets/hdfc.png', 'assets/info.png', 'assets/nifty.png' ];
 // Preload (best-effort)
 logos.forEach(s => { const i=new Image(); i.src=s; });
-
 // ---------------- Main bubble logic (4s cycle) ----------------
-const mainImg = document.getElementById('mainImg');
-const mainBubble = document.getElementById('mainBubble');
-let mainIndex = 0;
-
-function showMain(idx){
-  mainImg.classList.remove('show');
-  mainBubble.classList.remove('pop');
-  // small timeout to allow fade-out
-  setTimeout(()=>{
-    // safe pick: if index out of range, wrap
-    const src = logos[idx % logos.length] || '';
-    mainImg.src = src;
-    // trigger pop animation
-    mainBubble.classList.add('pop');
-    // force reflow then show
-    void mainImg.offsetWidth;
-    mainImg.classList.add('show');
-  }, 160);
-}
-showMain(mainIndex);
-const mainInterval = setInterval(()=>{
-  mainIndex = (mainIndex + 1) % logos.length;
-  showMain(mainIndex);
-}, 4000);
-
-// allow click to advance
-mainBubble.addEventListener('click', ()=>{ mainIndex = (mainIndex + 1) % logos.length; showMain(mainIndex); });
-
+const mainImg = document.getElementById('mainImg'); const mainBubble = document.getElementById('mainBubble'); let mainIndex = 0; function showMain(idx){ mainImg.classList.remove('show'); mainBubble.classList.remove('pop'); // small timeout to allow fade-out setTimeout(()=>{ // safe pick: if index out of range, wrap const src = logos[idx % logos.length] || ''; mainImg.src = src; // trigger pop animation mainBubble.classList.add('pop'); // force reflow then show void mainImg.offsetWidth; mainImg.classList.add('show'); }, 160); } showMain(mainIndex); const mainInterval = setInterval(()=>{ mainIndex = (mainIndex + 1) % logos.length; showMain(mainIndex); }, 4000); // allow click to advance mainBubble.addEventListener('click', ()=>{ mainIndex = (mainIndex + 1) % logos.length; showMain(mainIndex); });
 // ---------------- Side bubbles logic ----------------
 // Each side bubble will cycle through logos faster (every 2s) but staggered
-const sideBubbles = Array.from(document.querySelectorAll('.side-bubble'));
-const sideCount = sideBubbles.length;
-
-// We'll assign each side bubble a start index so they show different logos
-sideBubbles.forEach((bubble, i) => {
-  const img = bubble.querySelector('img');
-  // start index spaced through the logos array
-  let idx = (i * 2) % logos.length;
-  // function to update this bubble
-  function updateSide(){
-    // hide then swap
-    img.classList.remove('show');
-    setTimeout(()=>{
-      img.src = logos[idx % logos.length] || '';
-      void img.offsetWidth;
-      img.classList.add('show');
-      idx = (idx + 1) % logos.length;
-    }, 140);
-  }
-  // stagger initial call so they don't all change simultaneously
-  setTimeout(updateSide, i * 300);
-  // loop (each bubble independent)
-  const intervalMs = 2000 + (i * 250); // slightly different intervals for natural feel
-  setInterval(updateSide, intervalMs);
-});
+const sideBubbles = Array.from(document.querySelectorAll('.side-bubble')); const sideCount = sideBubbles.length; // We'll assign each side bubble a start index so they show different logos
+sideBubbles.forEach((bubble, i) => { const img = bubble.querySelector('img'); // start index spaced through the logos array let idx = (i * 2) % logos.length; // function to update this bubble function updateSide(){ // hide then swap img.classList.remove('show'); setTimeout(()=>{ img.src = logos[idx % logos.length] || ''; void img.offsetWidth; img.classList.add('show'); idx = (idx + 1) % logos.length; }, 140); } // stagger initial call so they don't all change simultaneously setTimeout(updateSide, i * 300); // loop (each bubble independent) const intervalMs = 2000 + (i * 250); // slightly different intervals for natural feel setInterval(updateSide, intervalMs); });
 </script>
-
 </body>
 </html>
