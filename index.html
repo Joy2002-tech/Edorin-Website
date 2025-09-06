@@ -1,138 +1,99 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>YourBrand — Trading Tools & Labs</title>
-
-  <!-- Google fonts: Playfair Display (elegant serif), Cairo (modern Arabic-friendly) -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Deep1 - Trade Insights & Automation</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Sticky header -->
+
+  <!-- Brand & Header -->
   <header class="site-header">
     <div class="header-row">
       <div class="brand">
-        <div class="logo">JD</div>
+        <div class="logo">D1</div>
         <div class="brand-text">
-          <div class="brand-name">YourBrand</div>
-          <div class="brand-sub">Trading tools & labs</div>
+          <span class="brand-name">Deep1</span>
+          <span class="brand-sub">Trade Insights & Automation</span>
         </div>
       </div>
-
       <nav class="main-nav">
-        <a href="#">Home</a>
-        <a href="#tools">Tools</a>
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
         <a href="#labs">Labs</a>
-        <a href="#about">About</a>
-      </nav>
-
-      <div class="header-actions">
+        <a href="#contact">Contact</a>
         <button class="btn-login">Login</button>
-      </div>
+      </nav>
     </div>
-
-    <!-- Ticker Tape -->
     <div class="ticker-wrap">
       <div class="ticker">
-        <div class="ticker-track" id="ticker-track"></div>
+        <span id="ticker-track"></span>
       </div>
     </div>
   </header>
 
-  <!-- Main container -->
-  <main class="container">
-    <!-- Brand Hero (right under nav) -->
-    <section class="brand-hero" id="home">
-      <div class="hero-inner">
-        <div class="hero-left">
-          <h1 class="hero-title">YourBrand</h1>
-          <p class="vision">We bring the wisdom of market maps and trade craft together — simple, reliable intraday signals with a touch of old-world style.</p>
-          <div class="hero-cta">
-            <a class="btn-primary" href="#tools">Explore Tools</a>
-            <a class="btn-ghost" href="#labs">See Labs</a>
+  <!-- Brand Hero Section -->
+  <section class="brand-hero">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <h1 class="hero-title">Market Maps Made Simple</h1>
+        <p class="vision">
+          Get actionable market signals and smart strategy tools—designed for clarity and confidence.
+        </p>
+        <div class="hero-cta">
+          <a href="#get-started" class="btn-primary">Get Started</a>
+          <a href="#learn-more" class="btn-ghost">Learn More</a>
+        </div>
+        <div class="product-hero">
+          <div class="product-card">
+            <h2>Real-Time Signal Map</h2>
+            <p>Live alerts and an intuitive trading compass.</p>
+            <div class="card-actions">
+              <button class="btn">Details</button>
+            </div>
+          </div>
+          <div class="product-card">
+            <h2>Backtest & Alerts</h2>
+            <p>Test strategies, paper trade, and set custom notifications.</p>
+            <div class="card-actions">
+              <button class="btn">Try Now</button>
+            </div>
           </div>
         </div>
-        <div class="hero-art">
-          <!-- decorative map / compass SVG placeholder -->
-          <svg viewBox="0 0 200 200" class="compass" aria-hidden="true">
-            <circle cx="100" cy="100" r="90" fill="none" stroke="#c59d5f" stroke-width="2"/>
-            <path d="M100 20 L110 100 L100 180 L90 100 Z" fill="#b5833b"/>
-            <circle cx="100" cy="100" r="6" fill="#5b3a20"/>
-          </svg>
-        </div>
       </div>
-    </section>
-
-    <!-- Hero Product (two main products) -->
-    <section class="product-hero">
-      <article class="product-card">
-        <h2>Hero Product 1</h2>
-        <p>Primary product description. Real-time signals and an intuitive map of opportunities.</p>
-        <div class="card-actions">
-          <button class="btn-primary">Open</button>
-          <button class="btn">Docs</button>
-        </div>
-      </article>
-
-      <article class="product-card">
-        <h2>Hero Product 2</h2>
-        <p>Secondary product. Paper trading, quick backtests and alerts.</p>
-        <ul class="features">
-          <li>Real-time signals</li>
-          <li>Paper trading</li>
-          <li>Quick backtests</li>
-        </ul>
-      </article>
-    </section>
-
-    <!-- Tools slider -->
-    <section id="tools" class="section">
-      <h3 class="section-title">Tools</h3>
-      <div class="card-slider" id="tools-slider"></div>
-    </section>
-
-    <!-- Labs slider -->
-    <section id="labs" class="section">
-      <h3 class="section-title">Labs</h3>
-      <div class="card-slider" id="labs-slider"></div>
-    </section>
-
-    <!-- About / decorative separator -->
-    <section id="about" class="section about">
-      <div class="ornament">✦</div>
-      <div class="about-text">
-        <h3>About</h3>
-        <p>Inspired by coastal maps and souk markets — we present data in a calm, warm palette so you can make clearer trading choices.</p>
+      <div class="hero-art">
+        <!-- Optional: add compass image if available -->
+        <!-- <img src="compass.svg" alt="Market Compass" class="compass" /> -->
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer class="site-footer">
     <div class="footer-grid">
-      <div>
-        <div class="brand-name footer-brand">YourBrand</div>
-        <div class="muted">Trusted tools for traders</div>
-      </div>
-
-      <div>
-        <strong>Product</strong>
-        <ul>
-          <li>Tools</li>
-          <li>Labs</li>
-          <li>Docs</li>
-        </ul>
-      </div>
-
-      <div>
-        <strong>Contact</strong>
-        <div class="muted">hi@yourbrand.com</div>
-      </div>
+      <ul>
+        <li><b>Deep1</b></li>
+        <li>Trade Insights</li>
+        <li>Stock Alerts</li>
+      </ul>
+      <ul>
+        <li>Products</li>
+        <li>VWAP Scanner</li>
+        <li>Option Flow</li>
+        <li>Backtester</li>
+        <li>Alerts</li>
+      </ul>
+      <ul>
+        <li>Labs</li>
+        <li>AI Filter</li>
+        <li>Heatmap</li>
+        <li>Algo Builder</li>
+      </ul>
     </div>
-    <div class="footer-bottom">© <span id="yr"></span> YourBrand • Crafted with a mapmaker's eye</div>
+    <div class="footer-bottom">
+      &copy; <span id="yr"></span> Deep1 Fintech. All rights reserved.
+    </div>
   </footer>
 
   <script src="script.js"></script>
