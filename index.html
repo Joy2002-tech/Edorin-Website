@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Edorin — Hero + Cards</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+  <div class="logo"><img src="assets/edo.png" alt="" style="width:28px;height:28px;border-radius:4px"> Edorin</div>
+  <div class="nav-links">
+    <a href="#" class="active">Home</a>
+    <a href="#">Products</a>
+    <a href="#">Labs</a>
+    <a href="#">About</a>
+  </div>
+</nav>
+
+<!-- TradingView Widget -->
+<div class="tradingview-widget-container" aria-hidden="false">
+  <div class="tradingview-widget-container__widget"></div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+  {
+  "symbols": [
+    { "proName": "BSE:SENSEX" },{ "proName": "BSE:BANK" },{ "proName": "BSE:RELIANCE" },
+    { "proName": "BSE:TATAMOTORS" },{ "proName": "BSE:MARUTI" },{ "proName": "BSE:BAJAJFINSV" },
+    { "proName": "BSE:BEL" },{ "proName": "BSE:ADANIPOWER" },{ "proName": "BSE:VBL" },
+    { "proName": "BSE:TVSMOTOR" },{ "proName": "BSE:SOLARINDS" },{ "proName": "BSE:SIEMENS" },
+    { "proName": "BSE:HAL" },{ "proName": "BSE:POLYCAB" },{ "proName": "BSE:CUMMINSIND" },
+    { "proName": "BSE:ICICIBANK" },{ "proName": "BSE:SBIN" },{ "proName": "BSE:ETERNAL" },
+    { "proName": "BSE:MIDCAP" },{ "proName": "BSE:SMLCAP" }
+  ],
+  "colorTheme":"dark","isTransparent":true,"showSymbolLogo":true,"displayMode":"compact","locale":"en"
+  }
+  </script>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+<h1>Edorin</h1>
+    <p class="tagline">"Guiding traders through markets with timeless intelligence."</p>
+  </div>
+  <div class="logo-bubble" id="mainBubble"><img id="mainImg" class="bubble-img" src="" alt="logo" /></div>
+
+  <div class="side-column left" id="leftBubbles"></div>
+  <div class="side-column right" id="rightBubbles"></div>
+
+  <div class="scroll-label">Scroll Down</div>
+  <div class="scroll-down">⌄</div>
+</section>
+
+<div class="section-divider" role="separator" aria-hidden="true"></div>
+
+<!-- OUR EDGE (interactive cards) -->
+<section class="cards-section">
+  <h2 class="cards-title">Our Edge</h2>
+
+  <div class="wrap edge-wrap">
+    <!-- Card 1 -->
+    <article class="card left" tabindex="0" aria-label="Smart Signals">
+      <img class="bg" src="assets/india.jpg" alt="Smart Signals">
+      <div class="ribbon">
+        <div>
+          <div class="title">Smart Signals</div>
+          <div class="summary">We deliver intelligent trading signals powered by AI and time-tested strategies to guide your decisions.</div>
+        </div>
+        <div class="actions">
+          <button class="btn explore-cta" data-msg="Explore Smart Signals" aria-label="Explore Smart Signals" type="button">Explore</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 2 -->
+    <article class="card right" tabindex="0" aria-label="Market Insights">
+      <img class="bg" src="assets/germany.jpg" alt="Market Insights">
+      <div class="ribbon">
+        <div>
+          <div class="title">Market Insights</div>
+          <div class="summary">Get simplified insights into complex market trends with clear, data-driven research and visualization.</div>
+        </div>
+        <div class="actions">
+          <button class="btn explore-cta" data-msg="Explore Market Insights" aria-label="Explore Market Insights" type="button">Explore</button>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<div class="section-divider" role="separator" aria-hidden="true"></div>
+
+<!-- Discover More (unchanged) -->
+<section class="image-cards-section">
+  <h2 class="cards-title">Discover More</h2>
+  <div class="image-cards-container">
+    <div class="image-card">
+      <img src="assets/india.jpg" alt="India" class="card-img">
+      <h3>India</h3>
+      <p>Experience timeless traditions, vibrant culture, and historic landmarks.</p>
+      <button class="card-btn explore-cta">Explore</button>
+    </div>
+    <div class="image-card">
+      <img src="assets/germany.jpg" alt="Germany" class="card-img">
+      <h3>Germany</h3>
+      <p>Discover innovation, beautiful architecture, and rich cultural heritage.</p>
+      <button class="card-btn explore-cta">Explore</button>
+    </div>
+  </div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
