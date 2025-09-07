@@ -78,7 +78,7 @@ h1{font-size:64px;margin-bottom:12px;letter-spacing:1px;color:#fff;font-weight:9
 .btn{ padding:8px 14px; border-radius:8px; border:2px solid rgba(255,255,255,0.85); background:transparent; color:#fff; font-weight:700; font-size:14px; cursor:pointer; display:inline-flex; align-items:center; gap:8px; transition:transform .18s ease, box-shadow .18s ease, background .18s ease; position:relative; overflow:hidden; }
 .btn:active{ transform:translateY(1px) scale(.995) }
 .btn:focus{ outline:3px solid rgba(255,255,255,0.12) }
-.btn .ripple{ position:absolute; border-radius:50%; transform:scale(0); opacity:.35; background:rgba(255,255,255,0.9); pointer-events:none; }
+.btn .ripple{ position:absolute; border-radius:50%; transform:scale(0); opacity:.75; background:rgba(255,255,255,0.9); pointer-events:none; }
 
 /* variants */
 .left .ribbon{ background: linear-gradient(90deg,var(--purple-a),var(--purple-b)); }
