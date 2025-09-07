@@ -1,3 +1,4 @@
+/* -------------------- Edorin: style.css (updated) -------------------- */
 /* Base */
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -7,12 +8,30 @@ body{
   padding-top:56px;
 }
 
+/* ========== Site variables (moved up for reliability) ========== */
+:root{
+  --radius: 20px;
+  --card-h: 340px;
+  --gap: 40px;
+
+  /* Pulse (green) */
+  --pulse-a: #32CD32;
+  --pulse-b: #00563F;
+
+  /* Edge / insights (red) */
+  --edge-a: #FF2400;
+  --edge-b: #B22222;
+
+  /* Generic accents */
+  --gold-a: #e6c34a;
+}
+
 /* NAV */
 nav{
   position:fixed;top:0;left:0;right:0;height:56px;
   display:flex;align-items:center;justify-content:space-between;
   padding:0 20px;z-index:1200;background:rgba(0,0,0,0.85);
-  border-bottom:3px solid #e6c34a;
+  border-bottom:3px solid var(--gold-a);
 }
 .logo{display:flex;gap:10px;align-items:center;font-weight:700;font-size:18px;color:#fff}
 .nav-links{display:flex;gap:18px}
@@ -36,9 +55,10 @@ nav{
 h1{font-size:64px;margin-bottom:12px;letter-spacing:1px;color:#fff;font-weight:900; text-shadow:0 6px 18px rgba(0,0,0,0.7)}
 .tagline{font-size:20px;font-style:italic;color:#e9e9e9;margin-bottom:18px;opacity:0.95}
 
-/* logo bubble */
+/* logo bubble - make bubble images visible by default (fixed) */
 .logo-bubble{ position:absolute; top:15%; left:16%; transform:translateX(-50%); width:110px;height:110px;border-radius:50%; background:rgba(12,12,15,0.28);backdrop-filter:blur(4px); border:1px solid rgba(255,204,0,0.07); box-shadow:0 6px 18px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02); display:flex;align-items:center;justify-content:center;overflow:hidden;z-index:3;cursor:pointer;}
-.bubble-img{ width:72%;height:72%;object-fit:contain;opacity:0;transform:scale(.8);transition: transform .45s, opacity .45s; filter: drop-shadow(0 6px 16px rgba(0,0,0,0.6)); }
+/* bubble images — previously set to opacity:0 which hid logos; now visible */
+.bubble-img{ width:72%;height:72%;object-fit:contain;opacity:1;transform:scale(1);transition: transform .45s, opacity .45s; filter: drop-shadow(0 6px 16px rgba(0,0,0,0.6)); }
 .bubble-img.show{opacity:1;transform:scale(1);}
 .pop { animation: popAnim .42s ease; }
 @keyframes popAnim {0%{transform:translateX(-50%) scale(.85);opacity:0}60%{transform:translateX(-50%) scale(1.08);opacity:1}100%{transform:translateX(-50%) scale(1)}}
@@ -46,8 +66,8 @@ h1{font-size:64px;margin-bottom:12px;letter-spacing:1px;color:#fff;font-weight:9
 /* side bubbles */
 .side-column{ position:absolute; top:0; bottom:0; width:78px; display:flex; flex-direction:column; align-items:center; z-index:2; pointer-events:none; overflow:hidden; }
 .side-column.left{ left:12px } .side-column.right{ right:12px }
-.side-bubble{ width:60px;height:60px;border-radius:50%; margin:10px 0; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.04); display:flex;align-items:center;justify-content:center;opacity:.95; box-shadow:0 8px 22px rgba(0,0,0,0.45); position:absolute; left:0; animation: floatUp 12s linear infinite;}
-.side-bubble img{ width:62%; height:62%; object-fit:contain; opacity:.95; }
+.side-bubble{ width:60px;height:60px;border-radius:50%; margin:10px 0; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.04); display:flex;align-items:center;justify-content:center; box-shadow:0 8px 22px rgba(0,0,0,0.45); position:absolute; left:0; animation: floatUp 12s linear infinite;}
+.side-bubble img{ width:62%; height:62%; object-fit:contain; opacity:1; }
 @keyframes floatUp { 0%{ transform:translateY(100vh); opacity:0 } 10%{ opacity:1 } 90%{ opacity:1 } 100%{ transform:translateY(-120px); opacity:0 } }
 
 /* scroll */
@@ -58,19 +78,31 @@ h1{font-size:64px;margin-bottom:12px;letter-spacing:1px;color:#fff;font-weight:9
 @media(max-width:900px){ h1{font-size:36px} .logo-bubble{width:86px;height:86px;top:14%} .side-column{display:none} }
 
 /* divider */
-.section-divider { height: 6px; background: #e6c34a; width: 100%; margin: 0 auto; border: none; }
+.section-divider { height: 6px; background: var(--gold-a); width: 100%; margin: 0 auto; border: none; }
 
 /* CARDS SECTION (Our Edge) header spacing */
 .cards-section{ background:#0d0d0d; padding:80px 20px; text-align:center; }
 .cards-title{ font-size:32px; font-weight:800; margin-bottom:40px; letter-spacing:1px; }
 
 /* ---------------- interactive card styles ---------------- */
-:root{ --radius: 20px; --card-h: 340px; --gap: 40px;  --pulse-a: #32CD32; --pulse-b: #00563F; --edge-a: #FF2400; --edge-b: #B22222; }
 .wrap{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:var(--gap); max-width:1100px; width:100%; margin:0 auto; align-items:start; }
 .edge-wrap{ max-width:980px; margin:0 auto; }
 .card{ position:relative; border-radius:var(--radius); overflow:hidden; box-shadow:0 18px 40px rgba(0,0,0,0.45); background:#0b0b0b; height:var(--card-h); transition:transform .28s cubic-bezier(.2,.9,.2,1),box-shadow .28s; outline:none; }
 .card:focus-within, .card:hover{ transform:translateY(-6px); box-shadow:0 30px 60px rgba(0,0,0,0.6); }
-.bg{ width:100%; height:100%; object-fit:cover; display:block; filter:contrast(.96) saturate(.9); opacity:1.0; }
+
+/* background image visibility + mild boost (was fully opaque earlier) */
+.bg{ width:100%; height:100%; object-fit:cover; display:block; filter:contrast(1) saturate(1.05); opacity:0.58; }
+
+/* overlay to ensure ribbon text stays readable */
+.card::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.56), rgba(0,0,0,0.12));
+  z-index: 1;
+  pointer-events:none;
+}
+
 .ribbon{ position:absolute; left:18px; right:18px; bottom:22px; height:118px; border-radius:14px; padding:18px 20px; display:flex; flex-direction:column; justify-content:space-between; z-index:3; box-shadow:0 18px 30px rgba(12,14,20,0.08); transition:transform .22s ease, box-shadow .22s ease; backdrop-filter: blur(6px); }
 .title{ font-size:18px; font-weight:700; color:#fff; margin-bottom:6px; }
 .summary{ font-size:14px; color:rgba(255,255,255,0.95); line-height:1.35; }
@@ -80,19 +112,22 @@ h1{font-size:64px;margin-bottom:12px;letter-spacing:1px;color:#fff;font-weight:9
 .btn:focus{ outline:3px solid rgba(255,255,255,0.12) }
 .btn .ripple{ position:absolute; border-radius:50%; transform:scale(0); opacity:.35; background:rgba(255,255,255,0.9); pointer-events:none; }
 
+/* ---------------- Ribbon variants (now use variables) ---------------- */
+
 /* Pulse (green glow) */
 .left .ribbon {
-  background: linear-gradient(135deg, #00c853 0%, #64dd17 100%);
-  box-shadow: 0 0 20px rgba(0,200,83,0.45), 0 12px 30px rgba(100,221,23,0.25);
-  z-index: 2;
+  background: linear-gradient(135deg, var(--pulse-a) 0%, var(--pulse-b) 100%);
+  box-shadow: 0 0 22px rgba(50,205,50,0.35), 0 14px 36px rgba(0,86,63,0.18);
+  z-index: 3;
 }
 
-/* Insights (red glow) */
+/* Insights (red/orange glow) */
 .right .ribbon {
-  background: linear-gradient(135deg, #ff3d00 0%, #ff6d00 100%);
-  box-shadow: 0 0 20px rgba(255,61,0,0.45), 0 12px 30px rgba(255,109,0,0.25);
-  z-index: 2;
+  background: linear-gradient(135deg, var(--edge-a) 0%, var(--edge-b) 100%);
+  box-shadow: 0 0 22px rgba(255,36,0,0.36), 0 14px 36px rgba(178,34,34,0.18);
+  z-index: 3;
 }
+
 .card:hover .ribbon, .card:focus-within .ribbon{ transform: translateY(-6px); box-shadow:0 28px 40px rgba(12,14,20,0.10); }
 
 /* toast */
@@ -104,7 +139,7 @@ h1{font-size:64px;margin-bottom:12px;letter-spacing:1px;color:#fff;font-weight:9
 .image-cards-container { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:24px; max-width:1000px; margin:0 auto; }
 .image-card { background:rgba(255,255,255,0.05); border-radius:14px; overflow:hidden; box-shadow:0 8px 24px rgba(0,0,0,0.4); display:flex; flex-direction:column; justify-content:space-between; transition:transform .25s ease, box-shadow .25s ease; }
 .image-card:hover { transform:translateY(-8px); box-shadow:0 16px 32px rgba(0,0,0,0.6); }
-.card-img { width:100%; height:180px; object-fit:cover; }
+.card-img { width:100%; height:180px; object-fit:cover; opacity:1; }
 .image-card h3 { margin:16px 0 8px; font-size:20px; color:#ffcc00; }
 .image-card p { font-size:14px; color:#ddd; padding:0 16px; margin-bottom:16px; }
 .card-btn { margin:0 16px 20px; padding:10px; border:1px solid #ffcc00; background:transparent; color:#ffcc00; border-radius:6px; cursor:pointer; font-weight:600; transition:all .25s ease; }
@@ -186,7 +221,7 @@ h1{font-size:64px;margin-bottom:12px;letter-spacing:1px;color:#fff;font-weight:9
   display: inline-block;
   padding: 10px 20px;
   border-radius: 10px;
-  background: linear-gradient(90deg, #32CD32 0%, #00563F 100%);
+  background: linear-gradient(90deg, var(--pulse-a) 0%, var(--pulse-b) 100%);
   color: #fff;
   font-weight: 700;
   text-decoration: none;
@@ -221,3 +256,8 @@ h1{font-size:64px;margin-bottom:12px;letter-spacing:1px;color:#fff;font-weight:9
   .showcase-card { flex: 0 0 92%; max-width: 92%; height: 320px; }
   .showcase-arrow { display: none; }
 }
+
+/* minor accessibility: ensure focus outlines are visible */
+a:focus, button:focus, .card:focus { outline: 3px solid rgba(255,255,255,0.08); outline-offset: 2px; }
+
+/* -------------------- end of file -------------------- */
