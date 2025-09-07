@@ -81,8 +81,19 @@ h1{font-size:64px;margin-bottom:12px;letter-spacing:1px;color:#fff;font-weight:9
 .btn .ripple{ position:absolute; border-radius:50%; transform:scale(0); opacity:.35; background:rgba(255,255,255,0.9); pointer-events:none; }
 
 /* variants */
-.left .ribbon{ background: linear-gradient(90deg,var(--pulse-a),var(--pulse-b)); }
-.right .ribbon{ background: linear-gradient(90deg,var(--edge-a),var(--edge-b)); }
+/* Pulse (green glow) */
+.left .ribbon {
+  background: linear-gradient(135deg, #00c853 0%, #64dd17 100%);
+  box-shadow: 0 0 20px rgba(0,200,83,0.45), 0 12px 30px rgba(100,221,23,0.25);
+  z-index: 2;
+}
+
+/* Insights (red glow) */
+.right .ribbon {
+  background: linear-gradient(135deg, #ff3d00 0%, #ff6d00 100%);
+  box-shadow: 0 0 20px rgba(255,61,0,0.45), 0 12px 30px rgba(255,109,0,0.25);
+  z-index: 2;
+}
 .card:hover .ribbon, .card:focus-within .ribbon{ transform: translateY(-6px); box-shadow:0 28px 40px rgba(12,14,20,0.10); }
 
 /* toast */
