@@ -194,3 +194,42 @@ h1{font-size:64px;margin-bottom:12px;letter-spacing:1px;color:#fff;font-weight:9
 .showcase-btn:hover {
   transform: translateY(-2px);
 }
+
+/* ------------- Card hover (glow + tilt + gradient animation) ------------- */
+.card-img, .image-card {
+  transition: transform 260ms cubic-bezier(.22,.9,.28,1), box-shadow 260ms ease, filter 260ms ease;
+  will-change: transform, box-shadow, filter;
+}
+
+/* slight tilt and lift */
+.image-card:hover {
+  transform: translateY(-10px) translateZ(0) rotateX(0.5deg);
+  box-shadow: 0 28px 60px rgba(0,0,0,0.6);
+}
+
+/* gradient shift for cards that use a gradient background */
+.explore-cta {
+  background: linear-gradient(90deg, #ff7ab6 0%, #7a5bff 50%, #ffd24d 100%);
+  background-size: 200% 100%;
+  transition: background-position 450ms ease, box-shadow 260ms ease;
+  border-radius: 12px;
+  padding: 14px 20px;
+  display:inline-block;
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+.explore-cta:hover {
+  background-position: 100% 0;
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+/* subtle image fade-in when source changes */
+img { opacity: 0; transition: opacity 360ms ease; }
+img.show { opacity: 1; }
+
+/* make card images look intentional if asset missing */
+.card-img { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.08)); object-fit: cover; }
+
